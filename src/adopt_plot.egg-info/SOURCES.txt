@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+src/adopt_plot/__init__.py
+src/adopt_plot/plot.py
+src/adopt_plot.egg-info/PKG-INFO
+src/adopt_plot.egg-info/SOURCES.txt
+src/adopt_plot.egg-info/dependency_links.txt
+src/adopt_plot.egg-info/requires.txt
+src/adopt_plot.egg-info/top_level.txt
