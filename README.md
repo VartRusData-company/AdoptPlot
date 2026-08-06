@@ -42,7 +42,7 @@ plot = AdoptPlot("y = 1/x", show=False)
 plot.ax.set_xlim(-10, 10)  # Change X-axis limits
 plot.save("my_plot.png", dpi=300)# Save to file
 ```
-[![my_plot.png](https://s6.iimage.su/s/06/g81ZrIAx4tGB8TvoKr0Rzd13wLuOoqnIAoEzBQVBz.png)](y=1/x)
+[![my_plot.png](https://s6.iimage.su/s/06/g81ZrIAx4tGB8TvoKr0Rzd13wLuOoqnIAoEzBQVBz.png)]($y=1/x$)
 ```python
 from adopt_plot import AdoptPlot
 
@@ -56,9 +56,7 @@ plot.ax.grid(True, linestyle=':', alpha=0.5)
 plot.save("publication_ready.png", dpi=300, bbox_inches='tight')
 plot.show()
 ```
-
-
-[![publication_ready.png](https://s6.iimage.su/s/06/g98NejXxyBk91Qy5ygthSKyBm89B2OZZLlKcy5nUp.png)]("sin(sqrt(x**2 + y**2)) / log(x**2 + y**2 + 1) = 0)
+[![publication_ready.png](https://s6.iimage.su/s/06/g98NejXxyBk91Qy5ygthSKyBm89B2OZZLlKcy5nUp.png)]($sin(sqrt(x^2+y^2))/log(x^2+y^2+1)=0$)
 ## Methods
 - **`show`**: Show the figure
 - **`save`**: Save the figure
