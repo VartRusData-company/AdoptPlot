@@ -42,7 +42,7 @@ plot = AdoptPlot("y = 1/x", show=False)
 plot.ax.set_xlim(-10, 10)  # Change X-axis limits
 plot.save("my_plot.png", dpi=300)# Save to file
 ```
-![my_plot](https://i.yapx.ru/eCFD2.png)
+[![my_plot.png](https://s6.iimage.su/s/06/g81ZrIAx4tGB8TvoKr0Rzd13wLuOoqnIAoEzBQVBz.png)](y=1/x)
 ```python
 from adopt_plot import AdoptPlot
 
@@ -58,7 +58,7 @@ plot.show()
 ```
 
 
-![Сложная функция](https://i.yapx.ru/eCFBo.png) (image 1)Hard function built by AdoptPlot
+[![publication_ready.png](https://s6.iimage.su/s/06/g98NejXxyBk91Qy5ygthSKyBm89B2OZZLlKcy5nUp.png)]("sin(sqrt(x**2 + y**2)) / log(x**2 + y**2 + 1) = 0)
 ## Methods
 - **`show`**: Show the figure
 - **`save`**: Save the figure
