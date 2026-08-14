@@ -7,4 +7,4 @@ class TooManyVariablesError(ValueError):
 class PltNotFoundError(ModuleNotFoundError):
     pass
 from .plot import AdoptPlot
-__all__ = ["AdoptPlot", "TooManyVariablesError"]
+__all__ = ["AdoptPlot", "TooManyVariablesError", "PltNotFoundError"]
