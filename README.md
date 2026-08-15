@@ -67,7 +67,7 @@ When creating an `AdoptPlot` object, the following parameters are available:
 - **`expr`** (`str`): The equation string (e.g., `"y = 1/x"`).
 - **`lib`** (`Literal['contour', 'implicit', None]`): Forced rendering engine. Default is `None` (automatic selection).
 - **`xlims`, `ylims`** (`Tuple[float, float]`): Initial visible range for the plot. Default `(-20, 20)`.
-- **`n`** (`int`): Grid density for the `contour` engine. Default `10000`.
+- **`n`** (`int`): Grid density for the `contour` engine. Default `1300`.
 - **`depth`** (`int`): Adaptive refinement depth for `plot_implicit`. Default `9`.
 - **`linewidth`** (`float`): Thickness of the plot line. Default `2.0`.
 - **`limit`** (`float | Tuple[float, float, float, float]`): Computational domain. Pass a single number (square) or a tuple of 4 numbers `(x_min, x_max, y_min, y_max)`. Default `100`.
