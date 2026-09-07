@@ -425,3 +425,22 @@ class AdoptPlot:
                 raise PltNotFoundError("fig not found")
         except Exception as e:
             raise Exception(e)
+
+    
+    def add_plot(self, other):
+    """Добавляет график другой функции на этот же объект."""
+    # Копируем все обычные линии (например, y = x)
+    for line in other.ax.lines:
+        self.ax.add_line(line)
+
+    # Копируем все коллекции (контуры от plot_implicit)
+    for collection in other.ax.collections:
+        self.ax.add_collection(collection)
+
+    # Обновляем легенду, если она включена
+    if self.legend:
+        self.ax.legend()
+
+    # Обновляем границы осей, чтобы графики были видны
+    self.ax.set_xlim(self.xlims)
+    self.ax.set_ylim(self.ylims)
