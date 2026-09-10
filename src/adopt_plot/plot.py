@@ -170,8 +170,8 @@ class AdoptPlot:
                 return
             else:
                 raise TooManyVariablesError(
-                f"adopt_plot поддерживает только 2D-графики. Получено {len(self.vars_list)} переменных: {self.vars_list}. "
-                f"Если вам нужен 3D-график, подождите следующей версии!"
+                f"adopt_plot supports only 2D plots. Received {len(self.vars_list)} variables: {self.vars_list}. "
+f"If you need a 3D plot, wait for the next version!"
             )
 
 
