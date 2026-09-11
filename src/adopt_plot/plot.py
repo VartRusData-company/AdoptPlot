@@ -333,12 +333,14 @@ f"If you need a 3D plot, wait for the next version!"
                 except Exception as e:
                     logging.warning(f"Ошибка при добавлении точек пересечения: {e}")
 
-                    self.ax.axhline(0, color='black', linewidth=1)
-                    self.ax.axvline(0, color='black', linewidth=1)
-                    self.ax.set_xlim(self.xlims)
-                    self.ax.set_ylim(self.ylims)
-                    self.ax.set_xlabel(str(var1))
-                    self.ax.set_ylabel(str(var2))
+                self.ax.axhline(0, color='black', linewidth=1)
+                self.ax.axvline(0, color='black', linewidth=1)
+                         
+                self.ax.set_xlim(self.xlims)
+                      
+                self.ax.set_ylim(self.ylims)
+                self.ax.set_xlabel(str(var1))
+                self.ax.set_ylabel(str(var2))
                     if self.text_legend:
                         self.ax.plot([], [], ' ', label=f"{self.text_legend}")
                     if self.legend:
