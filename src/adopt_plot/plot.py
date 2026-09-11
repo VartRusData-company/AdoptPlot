@@ -181,7 +181,7 @@ f"If you need a 3D plot, wait for the next version!"
         # Обновляем историю
 
         except Exception as e:
-            raise Exception(e)
+            raise
 
     def plot_equation(self):
         try:
@@ -416,7 +416,7 @@ f"If you need a 3D plot, wait for the next version!"
             else:
                 raise PltNotFoundError("plt Not Found")
         except Exception as e:
-            raise Exception(e)
+            raise
     def save(self, path, dpi: int = 300, format: str | None = None, bbox_inches: Literal['tight', 'standard', None] = 'tight', pad_inches: float | int = 0, transparent: bool = False, orientation: Literal['landscape', 'portrait']='landscape', metadata=None):
         try:
             if hasattr(self, 'fig'):
@@ -424,7 +424,7 @@ f"If you need a 3D plot, wait for the next version!"
             else:
                 raise PltNotFoundError("fig not found")
         except Exception as e:
-            raise Exception(e)
+            raise
 
     
     def add_plot(self, other):
