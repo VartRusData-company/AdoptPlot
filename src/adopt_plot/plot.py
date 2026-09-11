@@ -1,4 +1,3 @@
-
 # SPDX-License-Identifier: BSD-3-Clause
 # Copyright (c) 2026 VartRusData. All rights reserved.
 from sympy import *
@@ -11,10 +10,11 @@ import sympy
 
 from . import TooManyVariablesError, PltNotFoundError
 
+
 def get_all_sympy_function_names():
     """Собирает имена всех встроенных функций и констант SymPy."""
     names = set(sympy.__all__)
-    #print(names)
+    # print(names)
     return names
 
 
@@ -45,9 +45,9 @@ def insert_multiplication_signs(expr: str, extra_functions=None) -> str:
         protected[placeholder] = name
         return placeholder
 
-    #print(expr)
+    # print(expr)
     expr = re.sub(r'[A-Za-z_]\w*', protect_known, expr)
-    #print(expr)
+    # print(expr)
     # === ШАГ 2: Правила вставки умножения ===
     expr = re.sub(rf'(\d+)(\ue000\d+\ue001)(?=\()', r'\1*\2', expr)
     # Явно вставляем * между цифрой/буквой и известным именем перед '('
@@ -68,32 +68,28 @@ def insert_multiplication_signs(expr: str, extra_functions=None) -> str:
     return expr
 
 
-
-
-
-
-
 from typing import Literal, Optional, Tuple
+
 
 class AdoptPlot:
     def __init__(self,
-               expr: str,
-               lib: Literal['contour', 'implicit', None] = None,
-               xlims: Tuple[float, float] = (-20, 20),
-               ylims: Tuple[float, float] = (-20, 20),
-               n: int = 10000,
+                 expr: str,
+                 lib: Literal['contour', 'implicit', None] = None,
+                 xlims: Tuple[float, float] = (-20, 20),
+                 ylims: Tuple[float, float] = (-20, 20),
+                 n: int = 10000,
 
-               depth: int = 9,
-               linewidth: float = 2.0,
-               limit: float | Tuple[float, float, float, float] = 100,
-               color: str = 'blue',
-               legend: bool = True,
-               points: bool = True,
-               grid: bool = True,
-               interact: bool = True,
-               show: bool = True,
-               text_legend: Optional[str] = None
-               ):
+                 depth: int = 9,
+                 linewidth: float = 2.0,
+                 limit: float | Tuple[float, float, float, float] = 100,
+                 color: str = 'blue',
+                 legend: bool = True,
+                 points: bool = True,
+                 grid: bool = True,
+                 interact: bool = True,
+                 show: bool = True,
+                 text_legend: Optional[str] = None
+                 ):
         """
         Plots an implicit function with adaptive engine selection.
 
@@ -113,7 +109,7 @@ class AdoptPlot:
             interact: Allow zooming/panning (does not fix limits rigidly).
             show: If False, returns a PlotHandle object instead of displaying the plot.
             text_legend: Additional text for the legend (supports "\\n" and a list of strings).
-    """
+        """
         try:
             self.lib = lib
             self.xlims = xlims
@@ -137,8 +133,6 @@ class AdoptPlot:
             # Проверяем наличие запятых в строке
             equation = equations_str
             # Разбиение строки на отдельные уравнения
-
-
 
             # Преобразование уравнений в объекты Sympy
             expressions = []
@@ -170,13 +164,9 @@ class AdoptPlot:
                 return
             else:
                 raise TooManyVariablesError(
-                f"adopt_plot supports only 2D plots. Received {len(self.vars_list)} variables: {self.vars_list}. "
-f"If you need a 3D plot, wait for the next version!"
-            )
-
-
-
-
+                    f"adopt_plot supports only 2D plots. Received {len(self.vars_list)} variables: {self.vars_list}. "
+                    f"If you need a 3D plot, wait for the next version!"
+                )
 
         # Обновляем историю
 
@@ -202,7 +192,6 @@ f"If you need a 3D plot, wait for the next version!"
 
                 return False
 
-
             expr = self.eq.lhs - self.eq.rhs
             vars_list = sorted(self.eq.free_symbols, key=lambda s: str(s))
             var1, var2 = vars_list[0], vars_list[1]
@@ -220,7 +209,6 @@ f"If you need a 3D plot, wait for the next version!"
                 y_intercepts = [float(s) for s in y_sol if s.is_real]
             except Exception:
                 pass
-
 
             def zoom_key_handler(event):
                 # Проверяем, что нажатие произошло на оси и это сочетание с Ctrl
@@ -259,6 +247,7 @@ f"If you need a 3D plot, wait for the next version!"
 
                 # Принудительно перерисовываем график
                 event.canvas.draw_idle()
+
             # === 2. Увеличиваем разрешение для гладкости (было 500, стало 1000) ===
             if self.lib == 'implicit' or (has_odz(expr, var1) and self.lib is None):
                 from sympy.plotting import plot_implicit
@@ -285,8 +274,6 @@ f"If you need a 3D plot, wait for the next version!"
                 # Три пустые линии для легенды (они не видны на графике, но создают текст в легенде)
                 self.ax.plot([], [], ' ', label=f"${latex(self.eq)}$")  # Красивое уравнение через LaTeX
 
-
-
                 patches = self.ax.patches
                 logging.info(f"{patches}")
                 # === УНИВЕРСАЛЬНОЕ ИЗМЕНЕНИЕ ТОЛЬКО ГРАФИКА (БЕЗ РАМОК) ===
@@ -310,45 +297,39 @@ f"If you need a 3D plot, wait for the next version!"
                     line.set_linewidth(self.linewidth)
                     line.set_color(self.color)
 
-
-
-                # Дальше твой код с точками и оформлением...
-
+                # === ТОЧКИ ПЕРЕСЕЧЕНИЯ (ОДИН ВЫЗОВ scatter НА КАЖДУЮ ОСЬ) ===
                 try:
                     if self.points:
                         if x_intercepts:
                             self.ax.scatter(
-                                x_intercepts, 
-                                [0] * len(x_intercepts), 
-                                s=60, color='red', marker='o', zorder=5, 
-                          label=f"Пересечения с X: {x_coords_str}"
-            )
+                                x_intercepts,
+                                [0] * len(x_intercepts),
+                                s=60, color='red', marker='o', zorder=5,
+                                label=f"Пересечения с X: {x_coords_str}"
+                            )
                         if y_intercepts:
                             self.ax.scatter(
-                [0] * len(y_intercepts), 
-                y_intercepts, 
-                s=60, color='blue', marker='o', zorder=5, 
-                label=f"Пересечения с Y: {y_coords_str}"
+                                [0] * len(y_intercepts),
+                                y_intercepts,
+                                s=60, color='blue', marker='o', zorder=5,
+                                label=f"Пересечения с Y: {y_coords_str}"
                             )
                 except Exception as e:
                     logging.warning(f"Ошибка при добавлении точек пересечения: {e}")
 
+                # === ОФОРМЛЕНИЕ ===
                 self.ax.axhline(0, color='black', linewidth=1)
                 self.ax.axvline(0, color='black', linewidth=1)
-                         
                 self.ax.set_xlim(self.xlims)
-                      
                 self.ax.set_ylim(self.ylims)
                 self.ax.set_xlabel(str(var1))
                 self.ax.set_ylabel(str(var2))
-                    if self.text_legend:
-                        self.ax.plot([], [], ' ', label=f"{self.text_legend}")
-                    if self.legend:
-                        self.ax.legend()
-                    if self.grid:
-                        self.ax.grid(True, linestyle='--', alpha=0.7)
-                except Exception as e:
-                    logging.warning(f"Ошибка при добавлении оформления на p.ax: {e}")
+                if self.text_legend:
+                    self.ax.plot([], [], ' ', label=f"{self.text_legend}")
+                if self.legend:
+                    self.ax.legend()
+                if self.grid:
+                    self.ax.grid(True, linestyle='--', alpha=0.7)
 
                 self.p.fig.tight_layout()
                 self.plt = self.p.plt
@@ -359,7 +340,6 @@ f"If you need a 3D plot, wait for the next version!"
             else:
                 self.current_engine = 'contour'
                 if isinstance(self.limit, (float, int)):
-
                     x_vals = np.linspace(-self.limit, self.limit, self.n)
                     y_vals = np.linspace(-self.limit, self.limit, self.n)
                 elif isinstance(self.limit, tuple):
@@ -391,10 +371,10 @@ f"If you need a 3D plot, wait for the next version!"
 
                 # Точки пересечения (теперь они не вызовут ошибку, если не найдутся)
                 self.ax.scatter([x for x in x_intercepts], [0] * len(x_intercepts), s=60, color='red', marker='o', zorder=5,
-                           label=f"Пересечения с X: {x_coords_str}")
+                                label=f"Пересечения с X: {x_coords_str}")
 
                 self.ax.scatter([0] * len(y_intercepts), [y for y in y_intercepts], s=60, color='blue', marker='o', zorder=5,
-                           label=f"Пересечения с Y: {y_coords_str}")
+                                label=f"Пересечения с Y: {y_coords_str}")
 
                 # Подписи осей строго по переменным
                 self.ax.set_xlabel(str(var1))
@@ -410,7 +390,6 @@ f"If you need a 3D plot, wait for the next version!"
                 self.plt = plt
 
                 if self.is_show:
-
                     self.plt.show()
 
         except Exception as e1:
@@ -419,6 +398,7 @@ f"If you need a 3D plot, wait for the next version!"
             from sympy.plotting import plot_implicit
             p = plot_implicit(self.eq, (var1, -10, 10), (var2, -10, 10), show=False)
             p.show()
+
     def show(self):
         try:
             if hasattr(self, 'plt'):
@@ -427,7 +407,8 @@ f"If you need a 3D plot, wait for the next version!"
                 raise PltNotFoundError("plt Not Found")
         except Exception as e:
             raise
-    def save(self, path, dpi: int = 300, format: str | None = None, bbox_inches: Literal['tight', 'standard', None] = 'tight', pad_inches: float | int = 0, transparent: bool = False, orientation: Literal['landscape', 'portrait']='landscape', metadata=None):
+
+    def save(self, path, dpi: int = 300, format: str | None = None, bbox_inches: Literal['tight', 'standard', None] = 'tight', pad_inches: float | int = 0, transparent: bool = False, orientation: Literal['landscape', 'portrait'] = 'landscape', metadata=None):
         try:
             if hasattr(self, 'fig'):
                 self.fig.savefig(path, dpi=dpi, format=format, bbox_inches=bbox_inches, pad_inches=pad_inches, transparent=transparent, orientation=orientation, metadata=metadata)
@@ -436,7 +417,6 @@ f"If you need a 3D plot, wait for the next version!"
         except Exception as e:
             raise
 
-    
     def add_plot(self, other):
         """Добавляет график другой функции на этот же объект."""
         # Копируем все обычные линии (например, y = x)
