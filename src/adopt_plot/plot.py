@@ -316,16 +316,22 @@ f"If you need a 3D plot, wait for the next version!"
 
                 try:
                     if self.points:
-                        try:
-
-                            for x in x_intercepts: self.ax.scatter(x, 0, s=60, color='red', marker='o', zorder=5, label=f"Пересечения с X: {x_coords_str}")
-                        except:
-                            pass
-                        try:
-
-                            for y in y_intercepts: self.ax.scatter(0, y, s=60, color='blue', marker='o', zorder=5, label=f"Пересечения с Y: {y_coords_str}")
-                        except:
-                            pass
+                        if x_intercepts:
+                            self.ax.scatter(
+                                x_intercepts, 
+                                [0] * len(x_intercepts), 
+                                s=60, color='red', marker='o', zorder=5, 
+                          label=f"Пересечения с X: {x_coords_str}"
+            )
+                        if y_intercepts:
+                            self.ax.scatter(
+                [0] * len(y_intercepts), 
+                y_intercepts, 
+                s=60, color='blue', marker='o', zorder=5, 
+                label=f"Пересечения с Y: {y_coords_str}"
+                            )
+                except Exception as e:
+                    logging.warning(f"Ошибка при добавлении точек пересечения: {e}")
 
                     self.ax.axhline(0, color='black', linewidth=1)
                     self.ax.axvline(0, color='black', linewidth=1)
